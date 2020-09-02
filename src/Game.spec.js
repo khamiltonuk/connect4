@@ -1,8 +1,7 @@
-// createBoard(6,7)
 import { createBoard, addPiece } from "./Game";
 
 describe("addPiece", () => {
-  it.only("should add a piece to the board in the right place", () => {
+  it("should add a piece to an empty board in the right place", () => {
     const board = createBoard(3, 3);
 
     const newState = addPiece(board, "X", 2);
@@ -11,6 +10,54 @@ describe("addPiece", () => {
       [".", ".", "."],
       [".", ".", "."],
       [".", ".", "X"],
+    ]);
+  });
+
+  it("should add a piece to a board with a piece in the right place", () => {
+    const board = [
+      [".", ".", "."],
+      [".", ".", "."],
+      [".", ".", "X"],
+    ];
+
+    const newState = addPiece(board, "X", 2);
+
+    expect(newState).toEqual([
+      [".", ".", "."],
+      [".", ".", "X"],
+      [".", ".", "X"],
+    ]);
+  });
+
+  it("should add a piece to a board with a piece in the right place", () => {
+    const board = [
+      [".", ".", "X"],
+      [".", ".", "X"],
+      [".", ".", "X"],
+    ];
+
+    const newState = addPiece(board, "X", 2);
+
+    expect(newState).toEqual([
+      [".", ".", "X"],
+      [".", ".", "X"],
+      [".", ".", "X"],
+    ]);
+  });
+
+  it("should add a piece to a board with a piece from the other team in the right place", () => {
+    const board = [
+      [".", ".", "."],
+      [".", ".", "."],
+      [".", ".", "O"],
+    ];
+
+    const newState = addPiece(board, "X", 2);
+
+    expect(newState).toEqual([
+      [".", ".", "."],
+      [".", ".", "X"],
+      [".", ".", "O"],
     ]);
   });
 });
