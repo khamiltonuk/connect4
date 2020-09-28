@@ -2,7 +2,7 @@ import React from "react";
 
 // https://rossta.net/blog/connect-four-with-svg-pattern-masking.html
 
-function Board({ rows = 5, columns = 5, gridSize = 100, padding = 20 }) {
+function Board({ rows = 4, columns = 5, gridSize = 300, padding = 40 }) {
   const circleRadius = (gridSize - padding) / 2;
   const boardWidth = columns * gridSize;
   const boardHeight = rows * gridSize;

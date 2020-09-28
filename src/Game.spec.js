@@ -90,3 +90,59 @@ describe("createBoard", () => {
     expect(columnCount).toBe(true);
   });
 });
+
+function findWinner(board) {
+  const boardWidth = board[0].length;
+  return board.reduce((row) => {
+    return row.map((piece, index) => {
+      if (piece === "X") {
+        console.log(index);
+      }
+    });
+  });
+}
+
+describe.skip("findWinner", () => {
+  test("should be able to find a vertical row of 4", () => {
+    const board = [
+      [".", ".", "X"],
+      [".", ".", "X"],
+      [".", ".", "X"],
+      [".", ".", "X"],
+    ];
+
+    const newState = findWinner(board);
+
+    expect(newState).toEqual("X");
+  });
+});
+
+function noMoreSpace(board) {
+  return board.flat().every((space) => space === "X" || space === "O");
+}
+
+describe("noMoreSpace", () => {
+  test.only("should return true if the board is full", () => {
+    const board = [
+      ["X", "O", "X"],
+      ["X", "O", "X"],
+      ["X", "O", "X"],
+    ];
+
+    const newState = noMoreSpace(board);
+
+    expect(newState).toEqual(true);
+  });
+
+  test.only("should return false if the board is not full", () => {
+    const board = [
+      ["X", "O", "."],
+      ["X", "O", "X"],
+      ["X", "O", "X"],
+    ];
+
+    const newState = noMoreSpace(board);
+
+    expect(newState).toEqual(false);
+  });
+});
