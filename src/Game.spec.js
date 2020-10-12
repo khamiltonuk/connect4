@@ -1,4 +1,4 @@
-import { createBoard, addPiece } from "./Game";
+import { createBoard, addPiece, findWinner, noMoreSpace } from "./Game";
 
 describe("addPiece", () => {
   it("should add a piece to an empty board in the right place", () => {
@@ -91,38 +91,131 @@ describe("createBoard", () => {
   });
 });
 
-function findWinner(board) {
-  const boardWidth = board[0].length;
-  return board.reduce((row) => {
-    return row.map((piece, index) => {
-      if (piece === "X") {
-        console.log(index);
-      }
+describe("findWinner", () => {
+  describe("X", () => {
+    test("should be able to find a diagonal descending row of 4", () => {
+      const board = [
+        ["X", "O", ".", "."],
+        [".", "X", "O", "."],
+        [".", ".", "X", "O"],
+        [".", ".", ".", "X"],
+      ];
+
+      const result = findWinner(board);
+
+      expect(result).toEqual("X");
+    });
+
+    test("should be able to find a diagonal ascending row of 4", () => {
+      const board = [
+        ["O", "X", ".", "X"],
+        [".", "X", "X", "."],
+        [".", "X", "X", "O"],
+        ["X", ".", ".", "X"],
+      ];
+
+      const result = findWinner(board);
+
+      expect(result).toEqual("X");
+    });
+
+    test("should be able to find a vertical row of 4", () => {
+      const board = [
+        [".", ".", "X", "."],
+        [".", "X", "X", "."],
+        [".", ".", "X", "."],
+        [".", ".", "X", "."],
+      ];
+
+      const result = findWinner(board);
+
+      expect(result).toEqual("X");
+    });
+
+    test("should be able to find a horizontal row of 4", () => {
+      const board = [
+        ["O", "X", "X", "X"],
+        [".", "X", "O", "O"],
+        [".", ".", "X", "X"],
+        ["X", "X", "X", "X"],
+      ];
+
+      const result = findWinner(board);
+
+      expect(result).toEqual("X");
     });
   });
-}
 
-describe.skip("findWinner", () => {
-  test("should be able to find a vertical row of 4", () => {
+  describe("O", () => {
+    test("should be able to find a diagonal descending row of 4", () => {
+      const board = [
+        ["O", "O", ".", "."],
+        [".", "O", "O", "."],
+        [".", ".", "O", "O"],
+        [".", ".", ".", "O"],
+      ];
+
+      const result = findWinner(board);
+
+      expect(result).toEqual("O");
+    });
+
+    test("should be able to find a diagonal ascending row of 4", () => {
+      const board = [
+        ["O", "X", ".", "O"],
+        [".", "X", "O", "."],
+        [".", "O", "X", "O"],
+        ["O", ".", ".", "X"],
+      ];
+
+      const result = findWinner(board);
+
+      expect(result).toEqual("O");
+    });
+
+    test("should be able to find a vertical row of 4", () => {
+      const board = [
+        [".", ".", "O", "."],
+        [".", "O", "O", "."],
+        [".", ".", "O", "."],
+        [".", ".", "O", "."],
+      ];
+
+      const result = findWinner(board);
+
+      expect(result).toEqual("O");
+    });
+
+    test("should be able to find a horizontal row of 4", () => {
+      const board = [
+        ["O", "X", "O", "O"],
+        [".", "O", "X", "O"],
+        [".", ".", "O", "X"],
+        ["O", "O", "O", "O"],
+      ];
+
+      const result = findWinner(board);
+
+      expect(result).toEqual("O");
+    });
+  });
+
+  test("should return undefined if no winner", () => {
     const board = [
       [".", ".", "X"],
-      [".", ".", "X"],
-      [".", ".", "X"],
-      [".", ".", "X"],
+      [".", "X", "O"],
+      [".", "O", "X"],
+      [".", "X", "O"],
     ];
 
-    const newState = findWinner(board);
+    const result = findWinner(board);
 
-    expect(newState).toEqual("X");
+    expect(result).toEqual(undefined);
   });
 });
 
-function noMoreSpace(board) {
-  return board.flat().every((space) => space === "X" || space === "O");
-}
-
 describe("noMoreSpace", () => {
-  test.only("should return true if the board is full", () => {
+  test("should return true if the board is full", () => {
     const board = [
       ["X", "O", "X"],
       ["X", "O", "X"],
@@ -134,7 +227,7 @@ describe("noMoreSpace", () => {
     expect(newState).toEqual(true);
   });
 
-  test.only("should return false if the board is not full", () => {
+  test("should return false if the board is not full", () => {
     const board = [
       ["X", "O", "."],
       ["X", "O", "X"],
