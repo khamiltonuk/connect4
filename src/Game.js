@@ -23,47 +23,75 @@ export function addPiece(board, piece, position) {
   return newBoard;
 }
 
-function findVerticalWinner(currentSlot, index, arr, boardWidth) {
-  if (arr[index + boardWidth] === currentSlot) {
-    if (arr[index + boardWidth * 2] === currentSlot) {
-      if (arr[index + boardWidth * 3] === currentSlot) {
-        return true;
-      }
+function findVerticalWinner(currentSlot, index, arr, depth, boardWidth) {
+  let result = [];
+  for (let i = 1; i < depth; i++) {
+    if (arr[index + boardWidth * i] === currentSlot) {
+      result.push(true);
+    } else {
+      result.push(false);
     }
   }
+  return result.every((outcome) => outcome);
 }
 
-function findDiagonalDescendingWinner(currentSlot, index, arr, boardWidth) {
-  if (arr[index + 1 + boardWidth] === currentSlot) {
-    if (arr[index + 2 + boardWidth * 2] === currentSlot) {
-      if (arr[index + 3 + boardWidth * 3] === currentSlot) {
-        return true;
-      }
+function findDiagonalDescendingWinner(
+  currentSlot,
+  index,
+  arr,
+
+  depth,
+  boardWidth
+) {
+  let result = [];
+  for (let i = 1; i < depth; i++) {
+    if (arr[index + i + boardWidth * i] === currentSlot) {
+      result.push(true);
+    } else {
+      result.push(false);
     }
   }
+  return result.every((outcome) => outcome);
 }
 
-function findDiagonalAscendingWinner(currentSlot, index, arr, boardWidth) {
-  if (arr[index + 1 - boardWidth] === currentSlot) {
-    if (arr[index + 2 - boardWidth * 2] === currentSlot) {
-      if (arr[index + 3 - boardWidth * 3] === currentSlot) {
-        return true;
-      }
+function findDiagonalAscendingWinner(
+  currentSlot,
+  index,
+  arr,
+  depth,
+  boardWidth
+) {
+  let result = [];
+  for (let i = 1; i < depth; i++) {
+    if (arr[index + i - boardWidth * i] === currentSlot) {
+      result.push(true);
+    } else {
+      result.push(false);
     }
   }
+  return result.every((outcome) => outcome);
 }
 
-function findHoritontalWinner(currentSlot, index, arr) {
-  if (arr[index + 1] === currentSlot) {
-    if (arr[index + 2] === currentSlot) {
-      if (arr[index + 3] === currentSlot) {
-        return true;
-      }
+function findHoritontalWinner(currentSlot, index, arr, depth) {
+  // if (arr[index + 1] === currentSlot) {
+  //   if (arr[index + 2] === currentSlot) {
+  //     if (arr[index + 3] === currentSlot) {
+  //       return true;
+  //     }
+  //   }
+  // }
+  let result = [];
+  for (let i = 1; i < depth; i++) {
+    if (arr[index + i] === currentSlot) {
+      result.push(true);
+    } else {
+      result.push(false);
     }
   }
+  return result.every((outcome) => outcome);
 }
 
-export function findWinner(board) {
+export function findWinner(board, depth = 4) {
   const boardWidth = board[0].length;
 
   const result = board.flat().find((slot, index, arr) => {
@@ -71,18 +99,20 @@ export function findWinner(board) {
       return false;
     }
 
-    const verticalWin = findVerticalWinner(slot, index, arr, boardWidth);
-    const horizontalWin = findHoritontalWinner(slot, index, arr);
+    const verticalWin = findVerticalWinner(slot, index, arr, depth, boardWidth);
+    const horizontalWin = findHoritontalWinner(slot, index, arr, depth);
     const diagonalAscendingWin = findDiagonalAscendingWinner(
       slot,
       index,
       arr,
+      depth,
       boardWidth
     );
     const diagonalDescendingWin = findDiagonalDescendingWinner(
       slot,
       index,
       arr,
+      depth,
       boardWidth
     );
 

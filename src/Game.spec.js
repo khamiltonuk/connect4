@@ -80,7 +80,7 @@ describe("createBoard", () => {
     expect(allDots).toBe(true);
   });
 
-  it("should return a board of 4 columns when 4 is passed into the function", () => {
+  it("should return a board of 5 columns when 5 is passed into the function", () => {
     const board = createBoard(3, 5);
 
     const columnCount = board.every((row) => {
@@ -186,6 +186,20 @@ describe("findWinner", () => {
       expect(result).toEqual("O");
     });
 
+    test("should be able to find a vertical row of 5", () => {
+      const board = [
+        [".", ".", "O", "."],
+        [".", "O", "O", "."],
+        [".", ".", "O", "."],
+        [".", ".", "O", "."],
+        [".", ".", "O", "."],
+      ];
+
+      const result = findWinner(board, 5);
+
+      expect(result).toEqual("O");
+    });
+
     test("should be able to find a horizontal row of 4", () => {
       const board = [
         ["O", "X", "O", "O"],
@@ -238,4 +252,14 @@ describe("noMoreSpace", () => {
 
     expect(newState).toEqual(false);
   });
+});
+
+describe("createGame", () => {
+  const game = {
+    depth: 4,
+    board: createBoard(7, 6),
+    gameState: "INIT",
+    chips: 7 * 3,
+    whosTurn: "X",
+  };
 });
