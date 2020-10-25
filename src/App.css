@@ -1,4 +1,25 @@
 .App {
-  height: 400px;
-  width: 400px;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.piece {
+}
+
+.player-1 {
+  background: red;
+}
+
+.player-2 {
+  background: yellow;
+}
+
+.right-tray {
+  position: relative;
+}
+.left-tray {
+  position: relative;
+  justify-self: flex-end;
 }

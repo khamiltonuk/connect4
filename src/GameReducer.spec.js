@@ -25,10 +25,11 @@ describe("gameReducer", () => {
     expect(updateState).toHaveProperty("GameState", "InPlay");
     expect(updateState).toHaveProperty("playerOne", 20);
     expect(updateState).toHaveProperty("playerTwo", 21);
-    expect(updateState.board).toEqual(
-      [["."], ["."], ["."]],
-      [["."], ["."], ["."]],
-      [["."], ["."], ["X"]]
-    );
+
+    expect(updateState.board).toEqual([
+      [".", ".", "."],
+      [".", ".", "."],
+      [".", ".", "X"],
+    ]);
   });
 });
