@@ -263,3 +263,8 @@ describe("createGame", () => {
     whosTurn: "X",
   };
 });
+
+describe("canPlayPiece", () => {
+  test.todo("should return false if no space in the column to play piece");
+  test.todo("should return true if there is space in the column to play piece");
+});

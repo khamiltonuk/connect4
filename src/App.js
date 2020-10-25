@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useReducer, createContext, useContext } from "react";
 import "./App.css";
-import Board from "./Board";
 
-function App() {
+const initialState = {
+  knightPosition: [0, 0],
+};
+
+function boardReducer(state, action) {
+  if (action.type === "UPDATE_KNIGHT_POSITION") {
+    return {
+      ...state,
+      knightPosition: action.payload,
+    };
   }
 
+  return state;
+}
+
+const BoardContext = createContext();
+function App() {
+  const [state, dispatch] = useReducer(boardReducer, initialState);
   return (
-    <div className="App">
-      <ul>
-      
-      </ul>
-    </div>
+    <BoardContext.Provider value={{ state, dispatch }}>
+      <div className="App"></div>
+    </BoardContext.Provider>
   );
 }
 
