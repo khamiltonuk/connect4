@@ -3,9 +3,17 @@ export function createBoard(rows, cols) {
   return matrix;
 }
 
+function insertItem(array, action) {
+  return [
+    ...array.slice(0, action.index),
+    action.item,
+    ...array.slice(action.index),
+  ];
+}
+
 export function addPiece(board, piece, position) {
   let bail = false;
-  const newBoard = board
+  return [...board]
     .reverse()
     .map((row) => {
       if (bail) {
@@ -13,14 +21,12 @@ export function addPiece(board, piece, position) {
       }
 
       if (row[position] === ".") {
-        row.splice(position, 1, piece);
         bail = true;
-        return row;
+        return [...row.slice(0, position), "X", ...row.slice(position + 1)];
       }
       return row;
     })
     .reverse();
-  return newBoard;
 }
 
 function findVerticalWinner(currentSlot, index, arr, depth, boardWidth) {

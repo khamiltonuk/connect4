@@ -1,6 +1,20 @@
 import { createBoard, addPiece, findWinner, noMoreSpace } from "./Game";
 
 describe("addPiece", () => {
+  it.only("reals life", () => {
+    const board = [
+      [".", ".", "."],
+      [".", ".", "."],
+      [".", ".", "."],
+    ];
+    const newState = addPiece(board, "X", 2);
+
+    expect(newState).toEqual([
+      [".", ".", "."],
+      [".", ".", "."],
+      [".", ".", "X"],
+    ]);
+  });
   it("should add a piece to an empty board in the right place", () => {
     const board = createBoard(3, 3);
 
