@@ -3,14 +3,6 @@ export function createBoard(rows, cols) {
   return matrix;
 }
 
-function insertItem(array, action) {
-  return [
-    ...array.slice(0, action.index),
-    action.item,
-    ...array.slice(action.index),
-  ];
-}
-
 export function addPiece(board, piece, position) {
   let bail = false;
   return [...board]
@@ -22,7 +14,7 @@ export function addPiece(board, piece, position) {
 
       if (row[position] === ".") {
         bail = true;
-        return [...row.slice(0, position), "X", ...row.slice(position + 1)];
+        return [...row.slice(0, position), piece, ...row.slice(position + 1)];
       }
       return row;
     })

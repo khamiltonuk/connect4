@@ -48,14 +48,15 @@ function App() {
     <BoardContext.Provider value={{ state, dispatch }}>
       <div className="App">
         <div className="right-tray">
-          <Piece player={1} top={10} right={10} />
+          {/* <Piece player={1} top={10} right={10} /> */}
         </div>
-        <Buttons dispatch={dispatch} />
+        <Buttons dispatch={dispatch} turn={state.whosTurn} />
 
-        <Board rows={6} columns={7} gridSize={150} />
+        {/* <Board rows={6} columns={7} gridSize={150} /> */}
         <Result board={state.board} />
+        <p>It is {state.whosTurn}'s turn</p>
         <div className="left-tray">
-          <Piece player={2} top={300} right={10} />
+          {/* <Piece player={2} top={300} right={10} /> */}
         </div>
       </div>
     </BoardContext.Provider>

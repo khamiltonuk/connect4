@@ -1,13 +1,21 @@
-import React from 'react'
+import React from "react";
 
-function Result({board}) {
-    return (
-        <>
-        {board.map((row,i ) => {
-            return (<div key={i}>{row.map(piece => (<div>{piece}</div>))}</div>)
+function Result({ board }) {
+  return (
+    <table>
+      <tbody>
+        {board.map((row, i) => {
+          return (
+            <tr key={i}>
+              {row.map((piece, i) => (
+                <td key={i}>{piece}</td>
+              ))}
+            </tr>
+          );
         })}
-        </>
-    )
+      </tbody>
+    </table>
+  );
 }
 
-export default Result
+export default Result;
