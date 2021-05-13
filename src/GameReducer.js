@@ -1,4 +1,4 @@
-import { createBoard, addPiece } from "./Game.js";
+import { createBoard, addPiece, findWinner } from "./Game.js";
 
 export const initialState = {
   GameState: "NewGame",
@@ -9,21 +9,22 @@ export const initialState = {
 };
 
 export function gameReducer(state, action) {
-  console.log({ action });
   switch (action.type) {
     case "PLAY_A_PIECE": {
+      const newBoard = addPiece(
+        state.board,
+        action.payload.player,
+        action.payload.column
+      );
       return {
         ...state,
+        GameState: findWinner(newBoard) ? "GameOver" : "InPlay",
         playerOne:
           action.payload.player === "X" ? state.playerOne - 1 : state.playerOne,
         playerTwo:
           action.payload.player === "O" ? state.playerTwo - 1 : state.playerTwo,
         whosTurn: state.whosTurn === "X" ? "O" : "X",
-        board: addPiece(
-          state.board,
-          action.payload.player,
-          action.payload.column
-        ),
+        board: newBoard,
       };
     }
     default:

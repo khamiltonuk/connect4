@@ -71,13 +71,6 @@ function findDiagonalAscendingWinner(
 }
 
 function findHoritontalWinner(currentSlot, index, arr, depth) {
-  // if (arr[index + 1] === currentSlot) {
-  //   if (arr[index + 2] === currentSlot) {
-  //     if (arr[index + 3] === currentSlot) {
-  //       return true;
-  //     }
-  //   }
-  // }
   let result = [];
   for (let i = 1; i < depth; i++) {
     if (arr[index + i] === currentSlot) {
