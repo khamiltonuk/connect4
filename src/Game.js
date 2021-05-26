@@ -85,7 +85,7 @@ function findHoritontalWinner(currentSlot, index, arr, depth) {
 export function findWinner(board, depth = 4) {
   const boardWidth = board[0].length;
 
-  const result = board.flat().find((slot, index, arr) => {
+  const hasWinner = board.flat().find((slot, index, arr) => {
     if (slot === ".") {
       return false;
     }
@@ -115,9 +115,15 @@ export function findWinner(board, depth = 4) {
     ].some((outcome) => outcome);
   });
 
-  return result;
+  const isTie = noMoreSpace(board);
+
+  return hasWinner || isTie;
 }
 
 export function noMoreSpace(board) {
   return board.flat().every((space) => space === "X" || space === "O");
+}
+
+export function canPlayPiece(board, position) {
+  return board[0][position] === ".";
 }

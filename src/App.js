@@ -43,7 +43,6 @@ const BoardContext = createContext();
 
 function App() {
   const [state, dispatch] = useReducer(gameReducer, initialState);
-  console.log(state.board);
   return (
     <BoardContext.Provider value={{ state, dispatch }}>
       <div className="App">
@@ -51,7 +50,7 @@ function App() {
           {/* <Piece player={1} top={10} right={10} /> */}
         </div>
         <Buttons dispatch={dispatch} turn={state.whosTurn} />
-
+        <p>{state.GameState}</p>
         {/* <Board rows={6} columns={7} gridSize={150} /> */}
         <Result board={state.board} />
         <p>It is {state.whosTurn}'s turn</p>

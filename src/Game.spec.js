@@ -1,7 +1,13 @@
-import { createBoard, addPiece, findWinner, noMoreSpace } from "./Game";
+import {
+  createBoard,
+  addPiece,
+  canPlayPiece,
+  findWinner,
+  noMoreSpace,
+} from "./Game";
 
 describe("addPiece", () => {
-  it.only("reals life", () => {
+  it("reals life", () => {
     const board = [
       [".", ".", "."],
       [".", ".", "."],
@@ -228,7 +234,7 @@ describe("findWinner", () => {
     });
   });
 
-  test("should return undefined if no winner", () => {
+  test("should return false if no winner", () => {
     const board = [
       [".", ".", "X"],
       [".", "X", "O"],
@@ -238,7 +244,7 @@ describe("findWinner", () => {
 
     const result = findWinner(board);
 
-    expect(result).toEqual(undefined);
+    expect(result).toEqual(false);
   });
 });
 
@@ -279,6 +285,28 @@ describe("createGame", () => {
 });
 
 describe("canPlayPiece", () => {
-  test.todo("should return false if no space in the column to play piece");
-  test.todo("should return true if there is space in the column to play piece");
+  test("should return false if no space in the column to play piece", () => {
+    const board = [
+      [".", ".", "X"],
+      [".", ".", "O"],
+      [".", ".", "X"],
+      [".", ".", "O"],
+    ];
+
+    const result = canPlayPiece(board, 2);
+
+    expect(result).toEqual(false);
+  });
+  test("should return true if there is space in the column to play piece", () => {
+    const board = [
+      [".", ".", "."],
+      [".", ".", "O"],
+      [".", ".", "X"],
+      [".", ".", "O"],
+    ];
+
+    const result = canPlayPiece(board, 2);
+
+    expect(result).toEqual(true);
+  });
 });

@@ -1,4 +1,4 @@
-import { createBoard, addPiece, findWinner } from "./Game.js";
+import { createBoard, addPiece, findWinner, canPlayPiece } from "./Game.js";
 
 export const initialState = {
   GameState: "NewGame",
@@ -11,6 +11,12 @@ export const initialState = {
 export function gameReducer(state, action) {
   switch (action.type) {
     case "PLAY_A_PIECE": {
+      const isPlayable = canPlayPiece(state.board, action.payload.column);
+
+      if (!isPlayable) {
+        return state;
+      }
+
       const newBoard = addPiece(
         state.board,
         action.payload.player,
